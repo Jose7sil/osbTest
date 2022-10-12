@@ -1,0 +1,13 @@
+<adapter-config name="db_PRC_INSERT_DEMAND_FAC" adapter="db" wsdlLocation="../WSDL/db_PRC_INSERT_DEMAND_FAC.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="Connection1" location="eis/DB/ECOM"/>
+  <endpoint-interaction portType="db_PRC_INSERT_DEMAND_FAC_ptt" operation="db_PRC_INSERT_DEMAND_FAC">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="ECOM"/>
+      <property name="PackageName" value="PCK_DEMAND"/>
+      <property name="ProcedureName" value="PRC_INSERT_DEMAND_FAC"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

@@ -1,0 +1,23 @@
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://difarma.com/order/etiquetaRequest" xmlns:ns0="http://difarma.com/order/etiquetaReq" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="order">RestReference</doc>
+   <grammars>
+      <xsd:schema>
+            <xsd:import namespace="http://difarma.com/order/etiquetaRequest" schemaLocation="etiquetaRequest.xsd"/>
+        </xsd:schema>
+      <xsd:schema>
+            <xsd:import namespace="http://difarma.com/order/etiquetaResponse" schemaLocation="etiquetaResponse.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/qa/order">
+         <method name="POST" soa:wsdlOperation="etiqueta">
+            <request>
+               <representation mediaType="application/json" element="cns:Root-Element" xmlns:cns="http://difarma.com/order/etiquetaRequest"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:Root-Element" xmlns:cns="http://difarma.com/order/etiquetaResponse"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

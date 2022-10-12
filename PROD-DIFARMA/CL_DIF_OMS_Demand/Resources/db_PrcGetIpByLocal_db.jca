@@ -1,0 +1,13 @@
+<adapter-config name="db_PrcGetIpByLocal" adapter="db" wsdlLocation="db_PrcGetIpByLocal.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="ECOM" location="eis/DB/ECOM"/>
+  <endpoint-interaction portType="db_PrcGetIpByLocal_ptt" operation="db_PrcGetIpByLocal">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="ECOM"/>
+      <property name="PackageName" value="PCK_INTEGRACION_OMS"/>
+      <property name="ProcedureName" value="PRC_GET_IP_BY_LOCAL"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

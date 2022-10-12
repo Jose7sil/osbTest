@@ -1,0 +1,9 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="CVInventarios" targetNamespace="CVInventarios">
+  <xs:element name="registrarOrdenPedidoRs" type="registrarOrdenPedidoRsType"/>
+  <xs:complexType name="registrarOrdenPedidoRsType">
+    <xs:sequence>
+      <xs:element name="error" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="errorDescripcion" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

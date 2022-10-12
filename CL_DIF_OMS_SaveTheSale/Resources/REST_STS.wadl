@@ -1,0 +1,23 @@
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:inp1="http://TargetNamespace.com/REST_SaveTheSale_CreateXml_request" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="REST_STS">RestService</doc>
+   <grammars>
+      <xsd:schema>
+            <xsd:import namespace="http://TargetNamespace.com/REST_SaveTheSale_CreateXml_request" schemaLocation="../EXPOSED/XSD/SaveTheSaleRq.xsd"/>
+        </xsd:schema>
+      <xsd:schema>
+            <xsd:include schemaLocation="../EXPOSED/XSD/RsOk.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/postSTS">
+         <method name="POST" soa:wsdlOperation="execute">
+            <request>
+               <representation mediaType="application/json" element="cns:Root-Element" xmlns:cns="http://TargetNamespace.com/REST_SaveTheSale_CreateXml_request"/>
+            </request>
+            <response status="202">
+               <ns0:representation mediaType="application/json" element="response" xmlns="" xmlns:ns0="http://wadl.dev.java.net/2009/02"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

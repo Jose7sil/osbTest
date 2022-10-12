@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Order">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PriceInfo">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="Currency"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Extn">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="ExtnRUNRUTNIT"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="OrderLines">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OrderLine">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Item">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="CostCurrency"/>
+                            <xs:attribute type="xs:int" name="ItemID"/>
+                            <xs:attribute type="xs:string" name="ItemShortDesc"/>
+                            <xs:attribute type="xs:string" name="ProductClass"/>
+                            <xs:attribute type="xs:short" name="UnitCost"/>
+                            <xs:attribute type="xs:string" name="UnitOfMeasure"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="LinePriceInfo">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="IsPriceLocked"/>
+                            <xs:attribute type="xs:short" name="UnitPrice"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="LineCharges">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="LineCharge">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="ChargeCategory"/>
+                                  <xs:attribute type="xs:string" name="ChargeName"/>
+                                  <xs:attribute type="xs:float" name="ChargePerLine"/>
+                                  <xs:attribute type="xs:float" name="ChargePerUnit"/>
+                                  <xs:attribute type="xs:string" name="Reference"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="LineTaxes">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="LineTax">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="ChargeCategory"/>
+                                  <xs:attribute type="xs:string" name="ChargeName"/>
+                                  <xs:attribute type="xs:short" name="Tax"/>
+                                  <xs:attribute type="xs:string" name="TaxName"/>
+                                  <xs:attribute type="xs:string" name="TaxableFlag"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Promotions">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Promotion">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:byte" name="PromotionId"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PersonInfoShipTo">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="Latitude"/>
+                            <xs:attribute type="xs:string" name="Longitude"/>
+                            <xs:attribute type="xs:string" name="AddressLine1"/>
+                            <xs:attribute type="xs:string" name="AddressLine2"/>
+                            <xs:attribute type="xs:string" name="AddressLine4"/>
+                            <xs:attribute type="xs:string" name="City"/>
+                            <xs:attribute type="xs:string" name="Country"/>
+                            <xs:attribute type="xs:long" name="DayPhone"/>
+                            <xs:attribute type="xs:string" name="EMailID"/>
+                            <xs:attribute type="xs:string" name="FirstName"/>
+                            <xs:attribute type="xs:string" name="LastName"/>
+                            <xs:attribute type="xs:string" name="MobilePhone"/>
+                            <xs:attribute type="xs:string" name="State"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="OrderLineSourcingControls">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="OrderLineSourcingCntrl">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:short" name="Node"/>
+                                  <xs:attribute type="xs:string" name="SuppressNodeCapacity"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Extn">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="ExtnIsNightShipping"/>
+                            <xs:attribute type="xs:string" name="ExtnIsPickUpByAuthPerson"/>
+                            <xs:attribute type="xs:string" name="ExtnIsPrescriptionHoldRequired"/>
+                            <xs:attribute type="xs:string" name="ExtnIsPrescriptionVerified"/>
+                            <xs:attribute type="xs:string" name="ExtnVerifyPrescriptionAtPick"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="DeliveryMethod"/>
+                  <xs:attribute type="xs:string" name="FulfillmentType"/>
+                  <xs:attribute type="xs:string" name="IsFirmPredefinedNode"/>
+                  <xs:attribute type="xs:string" name="IsProcurementAllowed"/>
+                  <xs:attribute type="xs:string" name="ItemGroupCode"/>
+                  <xs:attribute type="xs:string" name="LevelOfService"/>
+                  <xs:attribute type="xs:string" name="LineType"/>
+                  <xs:attribute type="xs:float" name="OrderedQty"/>
+                  <xs:attribute type="xs:string" name="PrimeLineNo"/>
+                  <xs:attribute type="xs:dateTime" name="ReqShipDate"/>
+                  <xs:attribute type="xs:short" name="ShipNode"/>
+                  <xs:attribute type="xs:byte" name="SubLineNo"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PaymentMethods">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PaymentMethod">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PersonInfoBillTo">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="LastName"/>
+                            <xs:attribute type="xs:string" name="AddressLine1"/>
+                            <xs:attribute type="xs:string" name="AddressLine2"/>
+                            <xs:attribute type="xs:string" name="AddressLine4"/>
+                            <xs:attribute type="xs:string" name="City"/>
+                            <xs:attribute type="xs:string" name="Country"/>
+                            <xs:attribute type="xs:string" name="DayPhone"/>
+                            <xs:attribute type="xs:string" name="EMailID"/>
+                            <xs:attribute type="xs:string" name="FirstName"/>
+                            <xs:attribute type="xs:string" name="MobilePhone"/>
+                            <xs:attribute type="xs:string" name="State"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PaymentDetailsList">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="PaymentDetails">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:int" name="AuthCode"/>
+                                  <xs:attribute type="xs:int" name="AuthorizationID"/>
+                                  <xs:attribute type="xs:string" name="ChargeType"/>
+                                  <xs:attribute type="xs:short" name="ProcessedAmount"/>
+                                  <xs:attribute type="xs:short" name="RequestAmount"/>
+                                  <xs:attribute type="xs:string" name="RequestProcessed"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="ChargeSequence"/>
+                  <xs:attribute type="xs:string" name="UnlimitedCharges"/>
+                  <xs:attribute type="xs:string" name="PaymentReference1"/>
+                  <xs:attribute type="xs:string" name="PaymentReference5"/>
+                  <xs:attribute type="xs:string" name="PaymentReference7"/>
+                  <xs:attribute type="xs:string" name="PaymentReference8"/>
+                  <xs:attribute type="xs:string" name="PaymentType"/>
+                  <xs:attribute type="xs:string" name="PaymentReference4"/>
+                  <xs:attribute type="xs:string" name="CreditCardType"/>
+                  <xs:attribute type="xs:string" name="CreditCardExpDate"/>
+                  <xs:attribute type="xs:string" name="CreditCardName"/>
+                  <xs:attribute type="xs:string" name="CreditCardNo"/>
+                  <xs:attribute type="xs:string" name="DisplayCreditCardNo"/>
+                  <xs:attribute type="xs:string" name="FirstName"/>
+                  <xs:attribute type="xs:string" name="LastName"/>
+                  <xs:attribute type="xs:string" name="MaxChargeLimit"/>
+                  <xs:attribute type="xs:string" name="PaymentReference2"/>
+                  <xs:attribute type="xs:string" name="PaymentReference3"/>
+                  <xs:attribute type="xs:string" name="PaymentReference6"/>
+                  <xs:attribute type="xs:string" name="PaymentReference9"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PersonInfoBillTo">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="AddressLine1"/>
+                <xs:attribute type="xs:string" name="AddressLine2"/>
+                <xs:attribute type="xs:string" name="AddressLine4"/>
+                <xs:attribute type="xs:string" name="City"/>
+                <xs:attribute type="xs:string" name="Country"/>
+                <xs:attribute type="xs:long" name="DayPhone"/>
+                <xs:attribute type="xs:string" name="EMailID"/>
+                <xs:attribute type="xs:string" name="FirstName"/>
+                <xs:attribute type="xs:string" name="LastName"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PersonInfoShipTo">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="AddressLine1"/>
+                <xs:attribute type="xs:string" name="AddressLine2"/>
+                <xs:attribute type="xs:string" name="AddressLine4"/>
+                <xs:attribute type="xs:string" name="City"/>
+                <xs:attribute type="xs:string" name="Country"/>
+                <xs:attribute type="xs:string" name="EMailID"/>
+                <xs:attribute type="xs:string" name="FirstName"/>
+                <xs:attribute type="xs:string" name="LastName"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="AllocationRuleID"/>
+      <xs:attribute type="xs:byte" name="DocumentType"/>
+      <xs:attribute type="xs:string" name="EntryType"/>
+      <xs:attribute type="xs:int" name="BillToID"/>
+      <xs:attribute type="xs:string" name="CustomerContactID"/>
+      <xs:attribute type="xs:string" name="CustomerEMailID"/>
+      <xs:attribute type="xs:string" name="CustomerFirstName"/>
+      <xs:attribute type="xs:string" name="CustomerLastName"/>
+      <xs:attribute type="xs:string" name="CustomerPhoneNo"/>
+      <xs:attribute type="xs:int" name="EnteredBy"/>
+      <xs:attribute type="xs:string" name="EnterpriseCode"/>
+      <xs:attribute type="xs:dateTime" name="OrderDate"/>
+      <xs:attribute type="xs:string" name="OrderNo"/>
+      <xs:attribute type="xs:string" name="OrderType"/>
+      <xs:attribute type="xs:string" name="PaymentRuleId"/>
+      <xs:attribute type="xs:string" name="PaymentStatus"/>
+      <xs:attribute type="xs:string" name="SellerOrganizationCode"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

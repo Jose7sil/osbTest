@@ -1,0 +1,26 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="CVInventarios" targetNamespace="CVInventarios">
+	<xs:element name="registrarOrdenPedidoRq" type="registrarOrdenPedidoRqType"/>
+	<xs:complexType name="registrarOrdenPedidoRqType">
+		<xs:sequence>
+			<xs:element name="tipo" type="xs:string" minOccurs="0"/>
+			<xs:element name="local" type="xs:string" minOccurs="0"/>
+                        <xs:element name="destinationIP" type="xs:string" minOccurs="0"/>
+			<xs:element name="nroOrden" type="xs:string" minOccurs="0"/>
+                        <xs:element name="usuarioId" type="xs:string" minOccurs="0"/>
+			<xs:element name="usuarioRut" type="xs:string" minOccurs="0"/>
+			<xs:element name="productos" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="producto" type="productoType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="productoType">
+		<xs:sequence>
+			<xs:element name="idProducto" type="xs:string" minOccurs="0"/>
+			<xs:element name="cantidad" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

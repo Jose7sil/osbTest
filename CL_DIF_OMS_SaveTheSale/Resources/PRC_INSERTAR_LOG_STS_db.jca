@@ -1,0 +1,13 @@
+<adapter-config name="PRC_INSERTAR_LOG_STS" adapter="db" wsdlLocation="PRC_INSERTAR_LOG_STS.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="ECOM" location="eis/DB/ECOM"/>
+  <endpoint-interaction portType="PRC_INSERTAR_LOG_STS_ptt" operation="PRC_INSERTAR_LOG_STS">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="ECOM"/>
+      <property name="PackageName" value="PKG_SAVETHESALE"/>
+      <property name="ProcedureName" value="PRC_INSERTAR_LOG_STS"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

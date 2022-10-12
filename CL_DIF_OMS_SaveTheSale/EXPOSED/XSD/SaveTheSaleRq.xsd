@@ -1,0 +1,65 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://TargetNamespace.com/REST_SaveTheSale_CreateXml_request" targetNamespace="http://TargetNamespace.com/REST_SaveTheSale_CreateXml_request" elementFormDefault="qualified" xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" nxsd:version="JSON" nxsd:encoding="US-ASCII">
+   <xsd:element name="Root-Element">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="clientData">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="firstName" type="xsd:string"/>
+                     <xsd:element name="id" type="xsd:string"/>
+                     <xsd:element name="lastName" type="xsd:string"/>
+                     <xsd:element name="mail" type="xsd:string"/>
+                     <xsd:element name="phone" type="xsd:string"/>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="originLocal">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="address" type="xsd:string"/>
+                     <xsd:element name="city" type="xsd:string"/>
+                     <xsd:element name="commune" type="xsd:string"/>
+                     <xsd:element name="localId" type="xsd:string"/>
+                     <xsd:element name="posId" type="xsd:string"/>
+                     <xsd:element name="latitude" type="xsd:string"/>
+                     <xsd:element name="longitude" type="xsd:string"/>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="shipData">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="serviceLevel" type="xsd:string"/>
+                     <xsd:element name="shipDay" type="xsd:string"/>
+                     <xsd:element name="storeId" type="xsd:string"/>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="deliveryType" type="xsd:string"/>
+            <xsd:element name="orderDate" type="xsd:string"/>
+            <xsd:element name="orderId" type="xsd:string"/>
+            <xsd:element name="products" maxOccurs="unbounded">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="description" type="xsd:string"/>
+                     <xsd:element name="quantity" type="xsd:double"/>
+                     <xsd:element name="sku" type="xsd:string"/>
+                     <xsd:element name="unitPrice" type="xsd:double"/>
+                     <xsd:element name="tax" type="xsd:double"/>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:sequence>
+      </xsd:complexType>
+   </xsd:element>
+   
+<xsd:annotation xmlns="">
+      <xsd:appinfo>NXSDSAMPLE=C:\jzuniga\Difarma\Documentos\SaveTheSale\Request_GeoCom.json</xsd:appinfo>
+      <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+   </xsd:annotation>
+<xsd:annotation xmlns="">
+      <xsd:appinfo>NXSDSAMPLE=C:\jzuniga\Difarma\Documentos\SaveTheSale\Request_GeoCom.json</xsd:appinfo>
+      <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+   </xsd:annotation>
+</xsd:schema>

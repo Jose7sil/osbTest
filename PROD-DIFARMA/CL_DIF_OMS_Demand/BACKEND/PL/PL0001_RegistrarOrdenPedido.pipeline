@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con4="http://www.bea.com/wli/sb/stages/alert/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="CL_DIF_OMS_Demand/BACKEND/WSDL/BS0001_RegistrarOrdenPedido"/>
+            <con:binding>
+                <con:name>registrarOrdenPedido_bind</con:name>
+                <con:namespace>CVInventarios</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router errorHandler="error-ae01426.72d3d8c3.0.16ef64f067f.N7f66">
+        <con:pipeline type="error" name="error-ae01426.72d3d8c3.0.16ef64f067f.N7f66">
+            <con:stage name="ControlErrores" id="_StageId-ae01426.N316f7ed5.0.16efb5042bd.N7928" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con:context xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
+                    <con1:userNsDecl prefix="ns0" namespace="http://www.derco.com/canonico/trazaAuditoria/v01"/>
+                </con:context>
+                <con:actions>
+                    <con4:alert xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-ae01426.N3f05b252.0.16f1692dad9.N7f96</con5:id>
+                        <con4:destination ref="CL_DIF_OMS_SendMail/Alerta/EnvioCorreo"/>
+                        <con4:description>ERROR DEMAND FCV-OSBPROD-CLFCV-T</con4:description>
+                        <con4:severity>major</con4:severity>
+                        <con4:payload>
+                            <con5:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$fault</con5:xqueryText>
+                        </con4:payload>
+                    </con4:alert>
+                    <con3:route xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-ae01426.7e5dd2bd.0.16f23d34fda.N7f03</con5:id>
+                        <con3:service ref="CL_DIF_OMS_Demand/BACKEND/BS/JMS_ColaError" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:outboundTransform>
+                            <con2:replace varName="body" contents-only="true">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-ae01426.7e5dd2bd.0.16f23d34fda.N7f02</con5:id>
+                                <con2:expr>
+                                    <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$error</con1:xqueryText>
+                                </con2:expr>
+                            </con2:replace>
+                            <con2:assign varName="error">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-ae01426.7e5dd2bd.0.16f23d34fda.N7f01</con5:id>
+                                <con1:disabled xmlns:con5="http://www.bea.com/wli/sb/stages/config">true</con1:disabled>
+                                <con2:expr>
+                                    <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$error</con1:xqueryText>
+                                </con2:expr>
+                            </con2:assign>
+                        </con3:outboundTransform>
+                    </con3:route>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="request" name="request-ae01426.N6069f6ac.0.16e414c41ef.N7f61">
+            <con:stage id="_StageId-ae01426.497c3ae0.0.16f8a688c5e.N7ee8" name="asignaEntrada">
+                <con:context>
+                    <con1:userNsDecl prefix="cvin" namespace="CVInventarios"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="entrada">
+                        <con1:id>_ActionId-ae01426.497c3ae0.0.16f8a688c5e.N7ee5</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>$body</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="numeroDoc">
+                        <con1:id>_ActionId-ae0140a.5155fe16.0.172b9741dda.N7eca</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>data($body/cvin:registrarOrdenPedidoRq/nroOrden)</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="local">
+                        <con1:id>_ActionId-ae01426.N7f71ba4d.0.17127e8caac.N7d39</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>data($body/cvin:registrarOrdenPedidoRq/local)</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="localIP">
+                        <con1:id>_ActionId-ae0145f.N3fa1a2b9.0.172de5915a5.N7e9d</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>data($body/cvin:registrarOrdenPedidoRq/destinationIP)</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-ae01426.N6069f6ac.0.16e414c41ef.N7c50" name="GetIP" errorHandler="error-ae01426.72d3d8c3.0.16ef64f067f.N7dff">
+                <con:context>
+                    <con1:userNsDecl prefix="cvin" namespace="CVInventarios"/>
+                </con:context>
+                <con:actions>
+                    <con2:wsCallout>
+                        <con1:id>_ActionId-ae01426.N6069f6ac.0.16e414c41ef.N7c4f</con1:id>
+                        <con2:service ref="CL_DIF_OMS_Demand/BACKEND/BS/db_PrcGetIpByLocal" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con2:operation>db_PrcGetIpByLocal</con2:operation>
+                        <con2:request>
+                            <con2:body wrapped="false">varGetIPReq</con2:body>
+                        </con2:request>
+                        <con2:response>
+                            <con2:body wrapped="false">varGetIPRes</con2:body>
+                        </con2:response>
+                        <con2:requestTransform>
+                            <con2:assign varName="varGetIPReq">
+                                <con1:id>_ActionId-ae01426.N6069f6ac.0.16e414c41ef.N7c49</con1:id>
+                                <con2:expr>
+                                    <con1:xqueryTransform>
+                                        <con1:resource ref="CL_DIF_OMS_Demand/BACKEND/XQ/XQ_JMSQueue_TO_XQ_GetIP"/>
+                                        <con1:param name="localRequest">
+                                            <con1:path>$body/*</con1:path>
+                                        </con1:param>
+                                    </con1:xqueryTransform>
+                                </con2:expr>
+                            </con2:assign>
+                        </con2:requestTransform>
+                        <con2:responseTransform>
+                            <con2:assign varName="varGetIPRes">
+                                <con1:id>_ActionId-ae01426.N6069f6ac.0.16e414c41ef.N7b7a</con1:id>
+                                <con2:expr>
+                                    <con1:xqueryText>$varGetIPRes</con1:xqueryText>
+                                </con2:expr>
+                            </con2:assign>
+                        </con2:responseTransform>
+                    </con2:wsCallout>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-ae01426.N6069f6ac.0.16e414c41ef.N7f0b" name="CallOrdenes" errorHandler="error-ae01426.N316f7ed5.0.16efb5042bd.N78a6" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config">
+                <con:context>
+                    <con2:userNsDecl prefix="cvin" namespace="CVInventarios"/>
+                </con:context>
+                <con:actions>
+                    <con1:wsCallout xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id>_ActionId-ae01426.N6069f6ac.0.16e414c41ef.N7f0a</con2:id>
+                        <con4:service ref="CL_DIF_OMS_Demand/BACKEND/BS/BS0001_Ordenes" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con4:operation>Execute</con4:operation>
+                        <con4:request>
+                            <con4:body wrapped="false">varOrdenesReq</con4:body>
+                        </con4:request>
+                        <con4:response>
+                            <con4:body wrapped="false">varOrdenesRes</con4:body>
+                        </con4:response>
+                        <con1:requestTransform>
+                            <con4:assign varName="varOrdenesReq">
+                                <con2:id>_ActionId-ae01426.N6069f6ac.0.16e414c41ef.N7ce9</con2:id>
+                                <con4:expr>
+                                    <con2:xqueryTransform>
+                                        <con2:resource ref="CL_DIF_OMS_Demand/BACKEND/XQ/XQ_RegistrarOrdenPedido_TO_XQ_Ordenes"/>
+                                        <con2:param name="registrarOrdenPedidoLocalRq">
+                                            <con2:path>$body/*</con2:path>
+                                        </con2:param>
+                                    </con2:xqueryTransform>
+                                </con4:expr>
+                            </con4:assign>
+                            <con1:routing-options>
+                                <con2:id>_ActionId-ae01426.N6069f6ac.0.16e414c41ef.N7f08</con2:id>
+                                <con1:uriExpr>
+                                    <con2:xqueryText>concat('http://',data($varGetIPRes//*:O_IP),':8084/cvinventarios/servlet/awsordenecommerce')</con2:xqueryText>
+                                </con1:uriExpr>
+                            </con1:routing-options>
+                        </con1:requestTransform>
+                        <con1:responseTransform>
+                            <con4:assign varName="varOrdenesRes">
+                                <con2:id>_ActionId-ae01426.N7f71ba4d.0.17127e8caac.N7d3e</con2:id>
+                                <con4:expr>
+                                    <con2:xqueryText>$varOrdenesRes</con2:xqueryText>
+                                </con4:expr>
+                            </con4:assign>
+                            <con1:replace contents-only="true" varName="body">
+                                <con2:id>_ActionId-ae01426.N6069f6ac.0.16e414c41ef.N7f06</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryText>$varOrdenesRes</con2:xqueryText>
+                                </con1:expr>
+                            </con1:replace>
+                        </con1:responseTransform>
+                    </con1:wsCallout>
+                    <con4:wsCallout xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id>_ActionId-ae01426.N7f71ba4d.0.17127e8caac.N7d45</con2:id>
+                        <con4:service ref="CL_DIF_OMS_Demand/BACKEND/BS/INSERT_POS_TRX" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con4:operation>INSERT_POS_TRX</con4:operation>
+                        <con4:request>
+                            <con4:body wrapped="false">insert</con4:body>
+                        </con4:request>
+                        <con4:response>
+                            <con4:body wrapped="false">out</con4:body>
+                        </con4:response>
+                        <con4:requestTransform>
+                            <con4:assign varName="insert">
+                                <con2:id>_ActionId-ae01426.N7f71ba4d.0.17127e8caac.N7d41</con2:id>
+                                <con4:expr>
+                                    <con2:xqueryText><![CDATA[<ins:InputParameters xmlns:ins="http://xmlns.oracle.com/pcbpel/adapter/db/sp/INSERT_POS_TRX">
+    <!--Optional:-->
+    <ins:P_REQUEST>{$varOrdenesReq}</ins:P_REQUEST>
+    <!--Optional:-->
+    <ins:P_RESPONSE>{$varOrdenesRes}</ins:P_RESPONSE>
+    <!--Optional:-->
+    <ins:P_NUMERO_DOC>{$numeroDoc}</ins:P_NUMERO_DOC>
+    <!--Optional:-->
+    <ins:P_ORIGEN>{data('DEMAND')}</ins:P_ORIGEN>
+        <!--Optional:-->
+    <ins:P_CADENA>{
+    if(data($local) = "1999")
+    then data('10')
+    else(data('40'))
+    }</ins:P_CADENA>
+    <!--Optional:-->
+    <ins:P_EMPRESA>{
+    if(data($local) = "1999")
+    then data('86')
+    else(data('98'))
+    }</ins:P_EMPRESA>
+    <ins:P_LOCALIP>{$localIP}</ins:P_LOCALIP>
+</ins:InputParameters>]]></con2:xqueryText>
+                                </con4:expr>
+                            </con4:assign>
+                        </con4:requestTransform>
+                        <con4:responseTransform/>
+                    </con4:wsCallout>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-ae01426.N316f7ed5.0.16efb5042bd.N78a6">
+            <con:stage id="_StageId-ae01426.N316f7ed5.0.16efb5042bd.N78a5" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con2:assign varName="error">
+                        <con1:id>_ActionId-ae01426.N316f7ed5.0.16efb5042bd.N7803</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>concat('&lt;Error>','&lt;![CDATA[',data($fault),']]&gt;','&lt;/Error>')</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con3:route>
+                        <con1:id>_ActionId-ae01426.N316f7ed5.0.16efb5042bd.N783a</con1:id>
+                        <con3:service ref="CL_DIF_OMS_Demand/BACKEND/BS/JMS_ColaError" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:outboundTransform>
+                            <con2:replace varName="body" contents-only="true">
+                                <con1:id>_ActionId-ae01426.N316f7ed5.0.16efb5042bd.N7839</con1:id>
+                                <con2:expr>
+                                    <con1:xqueryText>$error</con1:xqueryText>
+                                </con2:expr>
+                            </con2:replace>
+                            <con2:assign varName="error">
+                                <con1:id>_ActionId-ae01426.N316f7ed5.0.16efb5042bd.N7838</con1:id>
+                                <con1:disabled>true</con1:disabled>
+                                <con2:expr>
+                                    <con1:xqueryText>$error</con1:xqueryText>
+                                </con2:expr>
+                            </con2:assign>
+                        </con3:outboundTransform>
+                    </con3:route>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-ae01426.N6069f6ac.0.16e414c41ef.N7f60"/>
+        <con:pipeline type="error" name="error-ae01426.72d3d8c3.0.16ef64f067f.N7dff">
+            <con:stage id="_StageId-ae01426.72d3d8c3.0.16ef64f067f.N7dfe" name="Error Handler">
+                <con:context>
+                    <con1:userNsDecl prefix="con" namespace="http://www.bea.com/wli/sb/context"/>
+                    <con1:userNsDecl prefix="cvin" namespace="CVInventarios"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="fechaConcatenada">
+                        <con1:id>_ActionId-ae01426.497c3ae0.0.16f8a688c5e.N7eef</con1:id>
+                        <con1:disabled>true</con1:disabled>
+                        <con2:expr>
+                            <con1:xqueryText>concat(fn:year-from-date(fn:current-date()), '/', fn:month-from-date(fn:current-date()), '/', fn:day-from-date(fn:current-date()) , ' ', fn:hours-from-dateTime(fn:current-dateTime()), ':', fn:minutes-from-dateTime(fn:current-dateTime()), ':', fn:seconds-from-dateTime(fn:current-dateTime()), ',111108000')</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="error">
+                        <con1:id>_ActionId-ae01426.497c3ae0.0.16f8a688c5e.N7ef2</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>concat('&lt;Error>','&lt;![CDATA[',data($fault),']]&gt;','&lt;/Error>')</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con3:route>
+                        <con1:id>_ActionId-ae01426.72d3d8c3.0.16ef64f067f.N7df4</con1:id>
+                        <con3:service ref="CL_DIF_OMS_Demand/BACKEND/BS/JMS_ColaError" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:outboundTransform>
+                            <con2:replace varName="body" contents-only="true">
+                                <con1:id>_ActionId-ae01426.N316f7ed5.0.16efb5042bd.N78d8</con1:id>
+                                <con2:expr>
+                                    <con1:xqueryText>$error</con1:xqueryText>
+                                </con2:expr>
+                            </con2:replace>
+                            <con2:assign varName="error">
+                                <con1:id>_ActionId-ae01426.N316f7ed5.0.16efb5042bd.N7e8d</con1:id>
+                                <con1:disabled>true</con1:disabled>
+                                <con2:expr>
+                                    <con1:xqueryText>$error</con1:xqueryText>
+                                </con2:expr>
+                            </con2:assign>
+                        </con3:outboundTransform>
+                    </con3:route>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="Pipeline Pair Node1">
+                <con:request>request-ae01426.N6069f6ac.0.16e414c41ef.N7f61</con:request>
+                <con:response>response-ae01426.N6069f6ac.0.16e414c41ef.N7f60</con:response>
+            </con:pipeline-node>
+        </con:flow>
+    </con:router>
+    <aler:alertRules xsi:nil="true" xmlns:aler="http://xmlns.oracle.com/servicebus/monitoring/alert"/>
+</con:pipelineEntry>

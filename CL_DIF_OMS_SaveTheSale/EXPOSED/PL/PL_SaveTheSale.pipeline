@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="CL_DIF_OMS_SaveTheSale/EXPOSED/WSDL/SaveTheSale"/>
+            <con:binding>
+                <con:name>execute_bind</con:name>
+                <con:namespace>http://xmlns.oracle.com/QA_Difarma/CL_DIF_OMS_SaveTheSale/SaveTheSale</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router errorHandler="error-ae0140a.6433d7a1.0.172616a18e7.N7f5f">
+        <con:pipeline type="request" name="request-ae0140a.6433d7a1.0.172616a18e7.N8000">
+            <con:stage id="_StageId-ae0140a.6433d7a1.0.172616a18e7.N7ffe" name="Transform To XML Orders">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="request">
+                        <con2:id>_ActionId-ae0140a.6433d7a1.0.172616a18e7.N7ffa</con2:id>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="CL_DIF_OMS_SaveTheSale/BACKEND/XQ/XQ_SavetoSale_To_OrderLoad"/>
+                                <con2:param name="STSRq">
+                                    <con2:path>$body/*</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:assign>
+                    <con3:report>
+                        <con2:id>_ActionId-ae0140a.427bb6f5.0.174070c9e0e.N7fe9</con2:id>
+                        <con2:disabled>true</con2:disabled>
+                        <con3:expr>
+                            <con2:xqueryText>$request</con2:xqueryText>
+                        </con3:expr>
+                        <con3:labels>
+                            <con3:key>varRequest</con3:key>
+                            <con3:varName>request</con3:varName>
+                            <con3:value>
+                                <con2:xpathText>.</con2:xpathText>
+                            </con3:value>
+                        </con3:labels>
+                    </con3:report>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N3f57ffef.1ca3936d.0.17402ea7349.N7f8f" name="Guardar Request Json">
+                <con:context>
+                    <con2:userNsDecl prefix="rest" namespace="http://TargetNamespace.com/REST_SaveTheSale_CreateXml_request"/>
+                </con:context>
+                <con:actions>
+                    <con3:log>
+                        <con2:id>_ActionId-N3f57ffef.1ca3936d.0.17402ea7349.N7ffe</con2:id>
+                        <con2:disabled>true</con2:disabled>
+                        <con3:logLevel>error</con3:logLevel>
+                        <con3:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con3:expr>
+                        <con3:message>--Entrada--</con3:message>
+                    </con3:log>
+                    <con1:nxsdTranslation>
+                        <con2:id>_ActionId-N3f57ffef.1ca3936d.0.17402ea7349.N7ffb</con2:id>
+                        <con1:type>XML-To-Native</con1:type>
+                        <con1:sourceExpr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="CL_DIF_OMS_SaveTheSale/BACKEND/XQ/untitled1"/>
+                                <con2:param name="rq">
+                                    <con2:path>$body/*</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:sourceExpr>
+                        <con1:nxsd ref="CL_DIF_OMS_SaveTheSale/EXPOSED/XSD/SaveTheSaleRq"/>
+                        <con1:schemaElement xmlns:rest="http://TargetNamespace.com/REST_SaveTheSale_CreateXml_request">rest:Root-Element</con1:schemaElement>
+                        <con1:assign-variable>varBody</con1:assign-variable>
+                    </con1:nxsdTranslation>
+                    <con5:assign varName="varBinary" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id>_ActionId-N3f57ffef.1ca3936d.0.17402ea7349.N7fc7</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText>fn-bea:binary-to-text($varBody,$var3)</con2:xqueryText>
+                        </con3:expr>
+                    </con5:assign>
+                    <con1:assign varName="requestJson">
+                        <con2:id>_ActionId-N3f57ffef.1ca3936d.0.17402ea7349.N7f88</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$varBinary</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-ae0140a.427bb6f5.0.174070c9e0e.N7ffc" name="Insertar Log BD">
+                <con:context>
+                    <con2:userNsDecl prefix="rest" namespace="http://TargetNamespace.com/REST_SaveTheSale_CreateXml_request"/>
+                </con:context>
+                <con:actions>
+                    <con1:wsCallout>
+                        <con2:id>_ActionId-ae0140a.427bb6f5.0.174070c9e0e.N7ffe</con2:id>
+                        <con1:service ref="CL_DIF_OMS_SaveTheSale/BACKEND/BS/PRC_INSERTAR_LOG_STS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>PRC_INSERTAR_LOG_STS</con1:operation>
+                        <con1:request>
+                            <con1:body wrapped="false">requestInsert</con1:body>
+                        </con1:request>
+                        <con1:response>
+                            <con1:body wrapped="false">responseInsert</con1:body>
+                        </con1:response>
+                        <con1:requestTransform>
+                            <con1:assign varName="requestXmlOms">
+                                <con2:id>_ActionId-ae0140a.427bb6f5.0.174070c9e0e.N7fec</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryText>fn-bea:serialize($request)</con2:xqueryText>
+                                </con1:expr>
+                            </con1:assign>
+                            <con1:assign varName="requestInsert">
+                                <con2:id>_ActionId-ae0140a.427bb6f5.0.174070c9e0e.N7ff9</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryTransform>
+                                        <con2:resource ref="CL_DIF_OMS_SaveTheSale/BACKEND/XQ/InsertLogBd"/>
+                                        <con2:param name="rqOrderId">
+                                            <con2:path>$body/*</con2:path>
+                                        </con2:param>
+                                        <con2:param name="rqRequestJson">
+                                            <con2:path>$requestJson</con2:path>
+                                        </con2:param>
+                                        <con2:param name="rqXmlOms">
+                                            <con2:path>$requestXmlOms</con2:path>
+                                        </con2:param>
+                                    </con2:xqueryTransform>
+                                </con1:expr>
+                            </con1:assign>
+                        </con1:requestTransform>
+                        <con1:responseTransform/>
+                    </con1:wsCallout>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-ae0140a.6433d7a1.0.172616a18e7.N7e23" name="Lectura JMS">
+                <con:context/>
+                <con:actions>
+                    <con1:wsCallout>
+                        <con2:id>_ActionId-ae0140a.6433d7a1.0.172616a18e7.N7e20</con2:id>
+                        <con1:service ref="CL_DIF_OMS_SaveTheSale/BACKEND/BS/JMS_FCV_to_OMS-Save_The_Sale" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:request>
+                            <con1:payload wrapped="true">body</con1:payload>
+                        </con1:request>
+                        <con1:response>
+                            <con1:payload wrapped="true">body</con1:payload>
+                        </con1:response>
+                        <con1:requestTransform>
+                            <con1:replace varName="body" contents-only="true" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config">
+                                <con2:id>_ActionId-ae0140a.6433d7a1.0.172616a18e7.N7dec</con2:id>
+                                <con1:location>
+                                    <con:xpathText xmlns:con="http://www.bea.com/wli/sb/stages/config">.</con:xpathText>
+                                </con1:location>
+                                <con1:expr>
+                                    <con2:xqueryText>$request</con2:xqueryText>
+                                </con1:expr>
+                            </con1:replace>
+                        </con1:requestTransform>
+                        <con1:responseTransform/>
+                    </con1:wsCallout>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-ae0140a.6433d7a1.0.172616a18e7.N7fff">
+            <con:stage id="_StageId-ae0140a.N27b89ff7.0.172a4e6c0ec.N7f96" name="PipeLine Response">
+                <con:context/>
+                <con:actions>
+                    <con1:replace varName="body" contents-only="true">
+                        <con2:id>_ActionId-ae0140a.N27b89ff7.0.172a4e6c0ec.N7e52</con2:id>
+                        <con1:location>
+                            <con2:xpathText>.</con2:xpathText>
+                        </con1:location>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="CL_DIF_OMS_SaveTheSale/BACKEND/XQ/XQ_Response"/>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-ae0140a.6433d7a1.0.172616a18e7.N7f5f">
+            <con:stage id="_StageId-ae0140a.6433d7a1.0.172616a18e7.N7f5e" name="Envio Correo">
+                <con:context/>
+                <con:actions>
+                    <con4:alert xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con4="http://www.bea.com/wli/sb/stages/alert/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-ae0140a.6433d7a1.0.172616a18e7.N7ec7</con5:id>
+                        <con4:destination ref="CL_DIF_OMS_SendMail/Alerta/EnvioCorreo"/>
+                        <con4:description>Error en interfaz SaveTheSale</con4:description>
+                        <con4:severity>major</con4:severity>
+                        <con4:payload>
+                            <con5:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$fault</con5:xqueryText>
+                        </con4:payload>
+                    </con4:alert>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-ae0140a.6433d7a1.0.172616a18e7.N7ec6" name="ColaTraza">
+                <con:context/>
+                <con:actions>
+                    <con3:route xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config">
+                        <con2:id>_ActionId-ae0140a.6433d7a1.0.172616a18e7.N7e58</con2:id>
+                        <con3:service ref="CL_DIF_OMS_Traza/EXPOSED/JMS/JMS_DEPOSITO_TRAZA" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:outboundTransform>
+                            <con1:assign varName="fechaConcatenada">
+                                <con2:id>_ActionId-ae0140a.6433d7a1.0.172616a18e7.N7e57</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryText>concat(fn:day-from-date(fn:current-date()), '/', fn:month-from-date(fn:current-date()), '/', fn:year-from-date(fn:current-date()), ' ', fn:hours-from-dateTime(fn:current-dateTime()), ':', fn:minutes-from-dateTime(fn:current-dateTime()), ':', fn:seconds-from-dateTime(fn:current-dateTime()), ',000000000')</con2:xqueryText>
+                                </con1:expr>
+                            </con1:assign>
+                            <con1:assign varName="errorColaTraza">
+                                <con2:id>_ActionId-ae0140a.6433d7a1.0.172616a18e7.N7e56</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryText><![CDATA[concat('<?xml version="1.0" encoding="UTF-8"?>', '<Error>', 
+'<fault>', fn-bea:serialize($fault/*), '</fault>', 
+'<Fecha>',$fechaConcatenada, '</Fecha>', 
+'<nombreInterfaz>SaveTheSale</nombreInterfaz>', 
+'<bodyRequest>' , fn-bea:serialize($body), '</bodyRequest>',
+'<codigoError>' , $fault/ctx:errorCode, '</codigoError>',
+'<canal>OSB</canal>',
+'<estadoEjecucion>ERROR</estadoEjecucion>',
+'<idTransaccion>', fn-bea:uuid() ,'</idTransaccion>',
+'</Error>')]]></con2:xqueryText>
+                                </con1:expr>
+                            </con1:assign>
+                            <con1:replace varName="body" contents-only="true">
+                                <con2:id>_ActionId-ae0140a.6433d7a1.0.172616a18e7.N7e55</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryText>$errorColaTraza</con2:xqueryText>
+                                </con1:expr>
+                            </con1:replace>
+                        </con3:outboundTransform>
+                    </con3:route>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="Pipeline Pair Node1">
+                <con:request>request-ae0140a.6433d7a1.0.172616a18e7.N8000</con:request>
+                <con:response>response-ae0140a.6433d7a1.0.172616a18e7.N7fff</con:response>
+            </con:pipeline-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

@@ -1,0 +1,15 @@
+<wsdl:definitions targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/QA_Difarma/CL_DIF_OMS_Demand/db_PrcGetIpByLocal" name="db_PrcGetIpByLocal-concrete" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:import location="db_PrcGetIpByLocal.wsdl" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/QA_Difarma/CL_DIF_OMS_Demand/db_PrcGetIpByLocal"/>
+    <wsdl:binding name="db_PrcGetIpByLocal_ptt-binding" type="db:db_PrcGetIpByLocal_ptt" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/QA_Difarma/CL_DIF_OMS_Demand/db_PrcGetIpByLocal">
+        <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+        <wsdl:operation name="db_PrcGetIpByLocal">
+            <soap:operation soapAction="db_PrcGetIpByLocal"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

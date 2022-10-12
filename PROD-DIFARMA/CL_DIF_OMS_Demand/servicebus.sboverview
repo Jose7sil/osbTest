@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://xmlns.oracle.com/sca/1.0" xmlns:ui="http://xmlns.oracle.com/soa/designer/" name="CL_DIF_OMS_Demand" label="CL_DIF_OMS_Demand" ui:displayName="CL_DIF_OMS_Demand"/>

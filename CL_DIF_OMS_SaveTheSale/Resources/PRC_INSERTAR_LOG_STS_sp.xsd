@@ -1,0 +1,20 @@
+<schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/PRC_INSERTAR_LOG_STS" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/sp/PRC_INSERTAR_LOG_STS" elementFormDefault="qualified">
+   <element name="InputParameters">
+      <complexType>
+         <sequence>
+            <element name="P_FECHATRX" type="string" db:index="1" db:type="VARCHAR2" minOccurs="0" nillable="true"/>
+            <element name="P_JSONDESDEPOS" type="string" db:index="2" db:type="CLOB" minOccurs="0" nillable="true"/>
+            <element name="P_XMLPARAOMS" type="string" db:index="3" db:type="CLOB" minOccurs="0" nillable="true"/>
+            <element name="P_ORDENNUMERO" type="string" db:index="4" db:type="VARCHAR2" minOccurs="0" nillable="true"/>
+         </sequence>
+      </complexType>
+   </element>
+   <element name="OutputParameters">
+      <complexType>
+         <sequence>
+            <element name="O_CODIGO" type="decimal" db:index="5" db:type="NUMBER" minOccurs="0" nillable="true"/>
+            <element name="O_DESCRIPCION" type="string" db:index="6" db:type="VARCHAR2" minOccurs="0" nillable="true"/>
+         </sequence>
+      </complexType>
+   </element>
+</schema>

@@ -1,0 +1,15 @@
+<wsdl:definitions targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/PropuestaTecnica2705/CL_DIF_OMS_Demand/db_PRC_INSERT_DEMAND_FAC" name="db_PRC_INSERT_DEMAND_FAC-concrete" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:import location="../BACKEND/WSDL/db_PRC_INSERT_DEMAND_FAC.wsdl" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/PropuestaTecnica2705/CL_DIF_OMS_Demand/db_PRC_INSERT_DEMAND_FAC"/>
+    <wsdl:binding name="db_PRC_INSERT_DEMAND_FAC_ptt-binding" type="db:db_PRC_INSERT_DEMAND_FAC_ptt" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/PropuestaTecnica2705/CL_DIF_OMS_Demand/db_PRC_INSERT_DEMAND_FAC">
+        <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+        <wsdl:operation name="db_PRC_INSERT_DEMAND_FAC">
+            <soap:operation soapAction="db_PRC_INSERT_DEMAND_FAC"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

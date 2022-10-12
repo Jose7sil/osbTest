@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions name="BPELMassiveInventoryS2S" targetNamespace="http://xmlns.oracle.com/Application1/MassiveInventoryS2SBPEL/BPELMassiveInventoryS2S" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/Application1/MassiveInventoryS2SBPEL/BPELMassiveInventoryS2S" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+   <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema">
+         <import namespace="http://xmlns.oracle.com/Application1/MassiveInventoryS2SBPEL/BPELMassiveInventoryS2S" schemaLocation="../Schemas/BPELMassiveInventoryS2S.xsd"/>
+      </schema>
+   </wsdl:types>
+   <wsdl:message name="BPELMassiveInventoryS2SRequestMessage">
+      <wsdl:part name="payload" element="client:process"/>
+   </wsdl:message>
+   <wsdl:portType name="BPELMassiveInventoryS2S">
+      <wsdl:operation name="process">
+         <wsdl:input message="client:BPELMassiveInventoryS2SRequestMessage"/>
+      </wsdl:operation>
+   </wsdl:portType>
+   <plnk:partnerLinkType name="BPELMassiveInventoryS2S">
+      <plnk:role name="BPELMassiveInventoryS2SProvider" portType="client:BPELMassiveInventoryS2S"/>
+   </plnk:partnerLinkType>
+</wsdl:definitions>

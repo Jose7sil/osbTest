@@ -75,28 +75,29 @@
       <string v="oracle.tip.tools.ide.ess.addin.ESSContentSetProvider/ess-content"/>
       <string v="oracle.jdeveloper.model.PathsConfiguration/cepContentSet"/>
    </list>
-   <value n="defaultPackage" v="client"/>
+   <value n="defaultPackage" v="sbprojecttwo"/>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
-         <string v="Java"/>
+         <string v="ServiceBusTechnology"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
       <value n="webIANAEncoding" v="windows-1252"/>
    </hash>
-   <hash n="oracle.jdeveloper.model.J2eeSettings">
-      <value n="j2eeWebAppName" v="OSB-4558-PROTESTJS-GIT-Client-webapp"/>
-      <value n="j2eeWebContextRoot" v="OSB-4558-PROTESTJS-GIT-Client-context-root"/>
-   </hash>
-   <hash n="oracle.jdeveloper.model.PathsConfiguration">
-      <hash n="javaContentSet">
-         <list n="pattern-filters">
-            <string v="+**"/>
-         </list>
-         <list n="url-path">
-            <url path="src/"/>
-         </list>
+   <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
+      <hash n="profileDefinitions">
+         <hash n="SBProjectTWO">
+            <value n="profileClass" v="SbProjectDeployProfile"/>
+            <value n="profileName" v="SBProjectTWO"/>
+         </hash>
       </hash>
+      <list n="profileList">
+         <string v="SBProjectTWO"/>
+      </list>
+   </hash>
+   <hash n="oracle.jdeveloper.model.J2eeSettings">
+      <value n="j2eeWebAppName" v="OSB-4558-PROTESTJS-GIT-SBProjectTWO-webapp"/>
+      <value n="j2eeWebContextRoot" v="OSB-4558-PROTESTJS-GIT-SBProjectTWO-context-root"/>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
       <url n="outputDirectory" path="classes/"/>

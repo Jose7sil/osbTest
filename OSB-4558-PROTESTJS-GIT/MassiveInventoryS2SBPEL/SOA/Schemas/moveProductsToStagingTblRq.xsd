@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema targetNamespace="moveProductsToStagingTbl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="moveProductsToStagingTbl">
+   <xs:element name="moveProductsToStagingTblRq" type="moveProductsToStagingTblRqType"/>
+   <xs:complexType name="moveProductsToStagingTblRqType">
+      <xs:sequence>
+         <xs:element name="codigoTienda" type="xs:string" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="queue" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>
