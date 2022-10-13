@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<wsdl:definitions name="moveProductsToStaging" targetNamespace="http://xmlns.oracle.com/DESA_Difarma_v1/MoveProductsToStagingTbl/moveProductsToStaging" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:WL5G3N2="http://xmlns.oracle.com/DESA_Difarma_v1/MoveProductsToStagingTbl/moveProductsToStaging" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-   <plnk:partnerLinkType name="SOAP_MoveProductsToStagingTbl_S2S">
-      <plnk:role name="moveProductsToStaging_ptt" portType="WL5G3N2:moveProductsToStaging_ptt"/>
-   </plnk:partnerLinkType>
-   <wsdl:import namespace="http://xmlns.oracle.com/DESA_Difarma_v1/MoveProductsToStagingTbl/moveProductsToStaging" location="MoveProductsToStagingTbl_S2S.wsdl"/>
-</wsdl:definitions>
